@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20200206 21:19:01.676" generator="Robot 3.1.2 (Python 2.7.15 on darwin)">
+<suite source="/Users/alexsohn/Desktop/devconnector_2.0/tests/api/POST_requests/users.robot" id="s1" name="Users">
+<test id="s1-t1" name="Registering a unique email address should return a status code 200">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200206 21:19:01.992" level="INFO">Creating Session using : alias=mysession, url=http://localhost:5000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20200206 21:19:01.993" starttime="20200206 21:19:01.992"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200206 21:19:01.995" level="INFO">${headers} = {u'Content-Type': u'application/json'}</msg>
+<status status="PASS" endtime="20200206 21:19:01.995" starttime="20200206 21:19:01.994"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${name}</arg>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20200206 21:19:01.997" level="INFO">${body} = {u'name': u'james', u'email': u'jameshyun56@gmail.com', u'password': u'littleman'}</msg>
+<status status="PASS" endtime="20200206 21:19:01.997" starttime="20200206 21:19:01.996"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>/api/users</arg>
+<arg>data=${body}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200206 21:19:01.999" level="INFO">POST Request using : uri=/api/users, files=None, params=None, timeout=None, allow_redirects=True
+headers={'Connection': 'keep-alive', u'Content-Type': u'application/json', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'User-Agent': 'python-requests/2.18.4'} 
+data={"name": "james", "email": "jameshyun56@gmail.com", "password": "littleman"} 
+json=None</msg>
+<msg timestamp="20200206 21:19:02.105" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" endtime="20200206 21:19:02.105" starttime="20200206 21:19:01.998"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<assign>
+<var>${status_code}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.107" level="INFO">${status_code} = 400</msg>
+<status status="PASS" endtime="20200206 21:19:02.107" starttime="20200206 21:19:02.106"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20200206 21:19:02.108" level="FAIL">400 != 200</msg>
+<status status="FAIL" endtime="20200206 21:19:02.109" starttime="20200206 21:19:02.108"></status>
+</kw>
+<status status="FAIL" endtime="20200206 21:19:02.109" critical="yes" starttime="20200206 21:19:01.991">400 != 200</status>
+</test>
+<test id="s1-t2" name="Registering a user with an email that already exists should return a status code 400">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200206 21:19:02.110" level="INFO">Creating Session using : alias=mysession, url=http://localhost:5000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20200206 21:19:02.111" starttime="20200206 21:19:02.110"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.112" level="INFO">${headers} = {u'Content-Type': u'application/json'}</msg>
+<status status="PASS" endtime="20200206 21:19:02.112" starttime="20200206 21:19:02.111"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${name}</arg>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.114" level="INFO">${body} = {u'name': u'james', u'email': u'jameshyun56@gmail.com', u'password': u'littleman'}</msg>
+<status status="PASS" endtime="20200206 21:19:02.114" starttime="20200206 21:19:02.112"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>/api/users</arg>
+<arg>data=${body}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.117" level="INFO">POST Request using : uri=/api/users, files=None, params=None, timeout=None, allow_redirects=True
+headers={'Connection': 'keep-alive', u'Content-Type': u'application/json', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'User-Agent': 'python-requests/2.18.4'} 
+data={"name": "james", "email": "jameshyun56@gmail.com", "password": "littleman"} 
+json=None</msg>
+<msg timestamp="20200206 21:19:02.212" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" endtime="20200206 21:19:02.212" starttime="20200206 21:19:02.115"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<assign>
+<var>${status_code}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.214" level="INFO">${status_code} = 400</msg>
+<status status="PASS" endtime="20200206 21:19:02.214" starttime="20200206 21:19:02.213"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status_code}</arg>
+<arg>400</arg>
+</arguments>
+<status status="PASS" endtime="20200206 21:19:02.216" starttime="20200206 21:19:02.214"></status>
+</kw>
+<status status="PASS" endtime="20200206 21:19:02.216" critical="yes" starttime="20200206 21:19:02.109"></status>
+</test>
+<test id="s1-t3" name="When users log in with correct credentials should return token">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200206 21:19:02.219" level="INFO">Creating Session using : alias=mysession, url=http://localhost:5000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20200206 21:19:02.220" starttime="20200206 21:19:02.218"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.221" level="INFO">${headers} = {u'Content-Type': u'application/json'}</msg>
+<status status="PASS" endtime="20200206 21:19:02.221" starttime="20200206 21:19:02.220"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.226" level="INFO">${body} = {u'email': u'jameshyun56@gmail.com', u'password': u'littleman'}</msg>
+<status status="PASS" endtime="20200206 21:19:02.226" starttime="20200206 21:19:02.222"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>/api/auth</arg>
+<arg>data=${body}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.230" level="INFO">POST Request using : uri=/api/auth, files=None, params=None, timeout=None, allow_redirects=True
+headers={'Connection': 'keep-alive', u'Content-Type': u'application/json', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'User-Agent': 'python-requests/2.18.4'} 
+data={"email": "jameshyun56@gmail.com", "password": "littleman"} 
+json=None</msg>
+<msg timestamp="20200206 21:19:02.443" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20200206 21:19:02.443" starttime="20200206 21:19:02.228"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<assign>
+<var>${json_object}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.445" level="INFO">To JSON using : content={"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUzY2YwMWQzNDcwYTc1YjY5OWE4ZmMwIn0sImlhdCI6MTU4MTA1Mjc0MiwiZXhwIjoxNTgxNDEyNzQyfQ.MYuwKqn2MJyBarEeDnOzH3m1ao2Wy1wUbKYNlFR-AJk"} </msg>
+<msg timestamp="20200206 21:19:02.445" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200206 21:19:02.445" level="INFO">${json_object} = {u'token': u'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUzY2YwMWQzNDcwYTc1YjY5OWE4ZmMwIn0sImlhdCI6MTU4MTA1Mjc0MiwiZXhwIjoxNTgxNDEyNzQyfQ.MYuwKqn2MJyBarEeDnOzH3m1ao2Wy1wUbKYNlFR-AJk'}</msg>
+<status status="PASS" endtime="20200206 21:19:02.445" starttime="20200206 21:19:02.444"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_object}</arg>
+<arg>$.token</arg>
+</arguments>
+<assign>
+<var>${bearer_token}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.488" level="INFO">${bearer_token} = [u'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUzY2YwMWQzNDcwYTc1YjY5OWE4ZmMwIn0sImlhdCI6MTU4MTA1Mjc0MiwiZXhwIjoxNTgxNDEyNzQyfQ.MYuwKqn2MJyBarEeDnOzH3m1ao2Wy1wUbKYNlFR-AJk']</msg>
+<status status="PASS" endtime="20200206 21:19:02.488" starttime="20200206 21:19:02.445"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${bearer_token[0]}</arg>
+</arguments>
+<assign>
+<var>${bearer_token}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.489" level="INFO">${bearer_token[0]} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUzY2YwMWQzNDcwYTc1YjY5OWE4ZmMwIn0sImlhdCI6MTU4MTA1Mjc0MiwiZXhwIjoxNTgxNDEyNzQyfQ.MYuwKqn2MJyBarEeDnOzH3m1ao2Wy1wUbKYNlFR-AJk</msg>
+<msg timestamp="20200206 21:19:02.489" level="INFO">${bearer_token} = None</msg>
+<status status="PASS" endtime="20200206 21:19:02.489" starttime="20200206 21:19:02.488"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response.content}</arg>
+<arg>token</arg>
+</arguments>
+<status status="PASS" endtime="20200206 21:19:02.490" starttime="20200206 21:19:02.489"></status>
+</kw>
+<status status="PASS" endtime="20200206 21:19:02.490" critical="yes" starttime="20200206 21:19:02.217"></status>
+</test>
+<test id="s1-t4" name="Get correct name and email of logged in user">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200206 21:19:02.491" level="INFO">Creating Session using : alias=mysession, url=http://localhost:5000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20200206 21:19:02.492" starttime="20200206 21:19:02.491"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>x-auth-token=${bearer_token[0]}</arg>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.493" level="INFO">${headers} = {u'x-auth-token': u'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUzY2YwMWQzNDcwYTc1YjY5OWE4ZmMwIn0sImlhdCI6MTU4MTA1Mjc0MiwiZXhwIjoxNTgxNDEyNzQyfQ.MYuwKqn2MJyBarEeDnOzH3m1ao2Wy1wUbKYNlFR-...</msg>
+<status status="PASS" endtime="20200206 21:19:02.493" starttime="20200206 21:19:02.492"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>/api/auth</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.494" level="INFO">GET Request using : uri=/api/auth, params=None, timeout=None, allow_redirects=True
+headers={'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', u'x-auth-token': u'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUzY2YwMWQzNDcwYTc1YjY5OWE4ZmMwIn0sImlhdCI6MTU4MTA1Mjc0MiwiZXhwIjoxNTgxNDEyNzQyfQ.MYuwKqn2MJyBarEeDnOzH3m1ao2Wy1wUbKYNlFR-AJk', 'Connection': 'keep-alive', 'User-Agent': 'python-requests/2.18.4', u'Content-Type': u'application/json'} 
+data=None 
+json=None</msg>
+<msg timestamp="20200206 21:19:02.590" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20200206 21:19:02.590" starttime="20200206 21:19:02.493"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<assign>
+<var>${json_object}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.591" level="INFO">To JSON using : content={"_id":"5e3cf01d3470a75b699a8fc0","name":"james","email":"jameshyun56@gmail.com","avatar":"//www.gravatar.com/avatar/99c928ea30758c0cccd8803e546aefca?s=200&amp;r=pg&amp;d=mm","date":"2020-02-07T05:05:33.221Z","__v":0} </msg>
+<msg timestamp="20200206 21:19:02.592" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200206 21:19:02.592" level="INFO">${json_object} = {u'name': u'james', u'__v': 0, u'avatar': u'//www.gravatar.com/avatar/99c928ea30758c0cccd8803e546aefca?s=200&amp;r=pg&amp;d=mm', u'date': u'2020-02-07T05:05:33.221Z', u'_id': u'5e3cf01d3470a75b699a8fc0', u'em...</msg>
+<status status="PASS" endtime="20200206 21:19:02.592" starttime="20200206 21:19:02.591"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_object}</arg>
+<arg>$.name</arg>
+</arguments>
+<assign>
+<var>${login_page_name}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.636" level="INFO">${login_page_name} = [u'james']</msg>
+<status status="PASS" endtime="20200206 21:19:02.636" starttime="20200206 21:19:02.592"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<assign>
+<var>${name}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.637" level="INFO">${name} = james</msg>
+<status status="PASS" endtime="20200206 21:19:02.637" starttime="20200206 21:19:02.637"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${login_page_name[0]}</arg>
+<arg>${name}</arg>
+</arguments>
+<status status="PASS" endtime="20200206 21:19:02.638" starttime="20200206 21:19:02.638"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_object}</arg>
+<arg>$.email</arg>
+</arguments>
+<assign>
+<var>${login_page_email}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.691" level="INFO">${login_page_email} = [u'jameshyun56@gmail.com']</msg>
+<status status="PASS" endtime="20200206 21:19:02.691" starttime="20200206 21:19:02.639"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${email}</arg>
+</arguments>
+<assign>
+<var>${email}</var>
+</assign>
+<msg timestamp="20200206 21:19:02.691" level="INFO">${email} = jameshyun56@gmail.com</msg>
+<status status="PASS" endtime="20200206 21:19:02.691" starttime="20200206 21:19:02.691"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${login_page_email[0]}</arg>
+<arg>${email}</arg>
+</arguments>
+<status status="PASS" endtime="20200206 21:19:02.693" starttime="20200206 21:19:02.692"></status>
+</kw>
+<status status="PASS" endtime="20200206 21:19:02.693" critical="yes" starttime="20200206 21:19:02.490"></status>
+</test>
+<status status="FAIL" endtime="20200206 21:19:02.695" starttime="20200206 21:19:01.680"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="3">Critical Tests</stat>
+<stat fail="1" pass="3">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="Users" pass="3">Users</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
