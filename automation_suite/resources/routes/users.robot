@@ -5,6 +5,8 @@ Library       Collections
 Library       JSONLibrary
 Library       os
 
+*** Variables  ***
+${endpoint}         /api/users
 
 *** Keywords ***
 Get response from registering a new user @ /api/users
