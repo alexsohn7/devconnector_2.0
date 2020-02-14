@@ -18,7 +18,7 @@ When user creates a profile by filling in all required fields it should return t
   ${response}=  Get response from logging in a valid user @ /api/auth  email=${email}  password=${password}
     ${bearer_token}=  Get bearer_token  ${response}
     ${headers}=  create dictionary  x-auth-token=${bearer_token}  Content-Type=application/json
-    ${response}=  Get response from creating a profile @ /api/profile  ${headers}  ${request_status}  ${request_skills}
+    ${response}=  Get response from creating a profile with required fields @ /api/profile  ${headers}  ${request_status}  ${request_skills}
 
     ${json_object}=  to json  ${response.content}
     ${response_status}=  get value from json  ${json_object}  $.status

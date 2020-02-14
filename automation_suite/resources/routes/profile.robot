@@ -9,7 +9,7 @@ Library       os
 ${endpoint}         /api/profile
 
 *** Keywords ***
-Get response from creating a profile @ /api/profile
+Get response from creating a profile with required fields @ /api/profile
   [Arguments]   ${headers}  ${status}  ${skills}  
   ${body}=      create dictionary  status=${status}  skills=${skills}
   ${response}=  post request  mysession  /api/profile  data=${body}  headers=${headers}
