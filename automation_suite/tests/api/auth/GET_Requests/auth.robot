@@ -30,5 +30,8 @@ Return status code 401 when user tries to log in with unauthenticated credential
   ${response}=  get request  mysession  /api/auth  headers=${headers}
 
 # Validations 
-  ${status_code}=             convert to string              ${response.status_code}
-  should be equal             ${status_code}                 401
+  ${status_code}=             convert to string                  ${response.status_code}
+  should be equal             ${status_code}                     401
+  ${json_object}=             to json                            ${response.content}
+  ${response_message}=        get value from json                ${json_object}             $.msg
+  should be equal             ${response_message[0]}             Token is not valid
