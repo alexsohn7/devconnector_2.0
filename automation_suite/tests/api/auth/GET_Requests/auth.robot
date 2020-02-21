@@ -23,7 +23,7 @@ Get correct name and email of logged in user
   ${email}=  convert to string  ${email}
   should be equal  ${login_page_email[0]}   ${email}
 
-Return token is not valid and status code 401 when logging in with incorrect password
+Return token is not valid and status code 401 when token given is not authorized
   ${response}=  Get response from logging in a valid user @ /api/auth  email=${email}  password=${password}
   ${bearer_token}=  Get bearer_token  ${response}
   ${headers}=  create dictionary  x-auth-token=${bearer_token}asdf  Content-Type=application/json
@@ -36,7 +36,7 @@ Return token is not valid and status code 401 when logging in with incorrect pas
   ${response_message}=        get value from json                ${json_object}             $.msg
   should be equal             ${response_message[0]}             Token is not valid
 
-Return No token, authorization denied when logging in with non-registered user
+Return No token, authorization denied when token is not given
   ${response}=  Get response from logging in a valid user @ /api/auth  email=${email}  password=${password}
   ${headers}=  create dictionary  Content-Type=application/json
   ${response}=  get request  mysession  /api/auth  headers=${headers}
