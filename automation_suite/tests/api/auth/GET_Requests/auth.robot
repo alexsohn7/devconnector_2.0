@@ -23,7 +23,7 @@ Get correct name and email of logged in user
   ${email}=  convert to string  ${email}
   should be equal  ${login_page_email[0]}   ${email}
 
-Return status code 401 when logging in with unauthorized user
+Return status code 401 when user tries to log in with unauthenticated credentials
   ${response}=  Get response from logging in a valid user @ /api/auth  email=${email}  password=${password}
   ${bearer_token}=  Get bearer_token  ${response}
   ${headers}=  create dictionary  x-auth-token=${bearer_token}asdf  Content-Type=application/json
