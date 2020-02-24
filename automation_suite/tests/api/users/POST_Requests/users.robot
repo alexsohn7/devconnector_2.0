@@ -43,7 +43,7 @@ Registering a user without filling in password field should return a status code
   should be equal             ${status_code}                 400
   ${json_object}=                 to json                        ${response.content}
   ${response_message}=        get value from json                ${json_object}             $.errors[0].msg   
-  should contain  ${response_message}  Please enter a password with 6 or more characters                
+  should be equal  ${response_message[0]}  Please enter a password with 6 or more characters                
 
 Registering a user without filling in name field should return a status code 400 and Name is required error message
   ${response}=  Get response from registering a new user @ /api/users  name=  email=${email}  password=${password}
@@ -53,5 +53,5 @@ Registering a user without filling in name field should return a status code 400
   should be equal             ${status_code}                 400
   ${json_object}=                 to json                        ${response.content}
   ${response_message}=        get value from json                ${json_object}             $.errors[0].msg   
-  should contain  ${response_message}  Name is required
+  should be equal  ${response_message[0]}  Name is required
 
