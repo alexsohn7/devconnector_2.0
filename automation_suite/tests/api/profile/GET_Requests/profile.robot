@@ -32,3 +32,18 @@ When the user attempts to gets a user profile by user id it should return a stat
   ${request_skills}=  Split String  ${request_skills}  ,${SPACE}
   list should contain value  ${user_profile_skills}  ${request_skills[0]}  ${request_skills[1]}
 
+When the user attempts to get a user profile by an incorrect user id it should return a status code 400 and Profile not found error message 
+  ${response}=  Get response from logging in a valid user @ /api/auth  email=${email}  password=${password}
+  ${bearer_token}=  Get bearer_token  ${response}
+  ${headers}=  create dictionary  x-auth-token=${bearer_token}  Content-Type=application/json
+  ${response}=  Get response from creating a profile with required fields @ /api/profile  ${headers}  status=${request_status}  skills=${request_skills}
+
+  ${json_object}=  to json  ${response.content}
+  ${response_user_id}=  get value from json  ${json_object}  $.user
+  ${user_id}=  set variable  ${response_user_id[0]}  
+  ${response}=  Get user profile by user id  user_id=5e3a8b38f3d2c74306d5eaae
+  ${status_code}=             convert to string               ${response.status_code}
+  should be equal             ${status_code}                  400
+  ${json_object}=                 to json                     ${response.content}
+  ${response_message}=        get value from json             ${json_object}      $.msg
+  should be equal              ${response_message[0]}         Profile not found
