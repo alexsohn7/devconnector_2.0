@@ -31,8 +31,3 @@ When user registers, creates a profile, deletes the profile, and looks up all pr
   ${response}=  get request  mysession  /api/profile
   ${all_user_profiles}=  set variable  ${response.content}
   should not contain  ${all_user_profiles}  ${to_be_deleted_name}  ${to_be_deleted_skills}  ${to_be_deleted_status}
-
-  # ${json_object}=  to json  ${response.content}
-  # ${response_user_id}=  get value from json  ${json_object}  $.user
-  # ${user_id}=  set variable  ${response_user_id[0]}  
-  # ${response}=  Get user profile by user id  user_id=${user_id}
