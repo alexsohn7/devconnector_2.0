@@ -14,7 +14,7 @@ ${to_be_deleted_skills}         Developer
 ${to_be_deleted_status}         PHP, SQL 
 
 *** Test Cases ***
-When user registers, creates a profile, deletes the profile, and looks up all profiles, it should ensure that the delete profile no longer exists
+When user registers, creates a profile, deletes the profile, and looks up all profiles, it should ensure that the user and the profile no longer exists
   ${headers}=   create dictionary  Content-Type=application/json
   ${body}=      create dictionary  name=${to_be_deleted_name}  email=${to_be_deleted_email}  password=${to_be_deleted_password} 
   ${response}=  post request  mysession  /api/users  data=${body}  headers=${headers}
@@ -30,7 +30,6 @@ When user registers, creates a profile, deletes the profile, and looks up all pr
   should be equal             ${response_message[0]}             User deleted
   ${response}=  get request  mysession  /api/profile
   ${all_user_profiles}=  set variable  ${response.content}
-  log to console  ${all_user_profiles}
   should not contain  ${all_user_profiles}  ${to_be_deleted_name}  ${to_be_deleted_skills}  ${to_be_deleted_status}
 
   # ${json_object}=  to json  ${response.content}
