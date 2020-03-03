@@ -49,4 +49,5 @@ When user creates a profile without filling in status required field it should r
   should be equal             ${status_code}                  400
   ${json_object}=                 to json                     ${response.content}
   ${response_message}=        get value from json             ${json_object}             $.errors[0].msg   
-  should be equal              ${response_message[0]}         Status is required      
+  should be equal              ${response_message[0]}         Status is required
+  

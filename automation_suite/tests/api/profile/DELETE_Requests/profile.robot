@@ -31,3 +31,13 @@ When user registers, creates a profile, deletes the profile, and looks up all pr
   ${response}=  get request  mysession  /api/profile
   ${all_user_profiles}=  set variable  ${response.content}
   should not contain  ${all_user_profiles}  ${to_be_deleted_name}  ${to_be_deleted_skills}  ${to_be_deleted_status}
+
+# When user clicks delete button the user can delete an experience for profile      
+#   ${response}=  Get response from logging in a valid user @ /api/auth  email=${email}  password=${password}
+#   ${bearer_token}=  Get bearer_token  ${response}
+#   ${headers}=  create dictionary  x-auth-token=${bearer_token}  Content-Type=application/json
+#   ${body}=     create dictionary  title=${title}  company=${company}  location=${location}  from=${from}  current=true  description=${description}
+#   ${response}=  put request  mysession  /api/profile/experience  data=${body}  headers=${headers}
+#   ${json_object}=  to json  ${response.content}
+#   ${response_experience}=  get value from json  ${json_object}  $.experience[0]
+#   ${response_experience}=  set to dictionary  ${response_experience[0]}
